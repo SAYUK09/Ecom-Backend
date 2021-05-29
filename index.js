@@ -17,7 +17,7 @@ const wishlistRoute = require("./routes/wishlist.route")
 
 const dbconnection = async () => {
   try {
-    await mongoose.connect(process.env.DB_URI, {
+    await mongoose.connect(process.env.ECOM_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
