@@ -8,6 +8,8 @@ const cors = require("cors")
 app.use(bodyParser.json())
 app.use(cors())
 
+
+
 //Import Routes
 const prodsRoute = require("./routes/products.route")
 

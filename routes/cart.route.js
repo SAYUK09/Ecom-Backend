@@ -17,7 +17,7 @@ router.get('/', async(req ,res)=>{
 // POST
 router.post('/', async (req, res)=>{
   console.log(req.body)
-
+  
   const addPrd = req.body
     const newCart = new Cart(
       addPrd
