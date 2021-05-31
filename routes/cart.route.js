@@ -6,8 +6,8 @@ const Cart = require("../models/cart.model")
 router.get('/', async(req ,res)=>{
 
   try{
-    const prd = await Cart.find()
-    res.json(prd)
+    const product = await Cart.find()
+    res.json(product)
   }catch(err){
     console.log("err", err)
   }
@@ -18,9 +18,9 @@ router.get('/', async(req ,res)=>{
 router.post('/', async (req, res)=>{
   console.log(req.body)
   
-  const addPrd = req.body
+  const addProduct = req.body
     const newCart = new Cart(
-      addPrd
+      addProduct
       
     )
   
@@ -46,7 +46,7 @@ router.get('/:prdId', async(req, res)=>{
 // DELETE 
 router.delete('/:prdId', async(req, res)=>{
   try{
-    const removedPrd = await Cart.remove({_id:req.params.prdId})
+    const removedProduct = await Cart.remove({_id:req.params.prdId})
     
     const newPrd = await Cart.find();
     res.json(newPrd);
