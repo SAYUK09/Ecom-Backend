@@ -13,8 +13,8 @@ const WishlistSchema = new mongoose.Schema(
   qty: {type:Number, required:true},
   inStock : {type:Boolean, required:true},
   fastDelivery: {type:Boolean, required:true},
-  },
-  {timestamp: true}
+  }
+  ,{timestamps: true}
 )
 
 

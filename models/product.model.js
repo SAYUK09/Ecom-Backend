@@ -12,7 +12,7 @@ const ProductSchema = new mongoose.Schema({
   qty: {type:Number, required:true},
   inStock : {type:Boolean, required:true},
   fastDelivery: {type:Boolean, required:true},
-  })
+  },{timestamps: true})
 
 const Product = mongoose.model("Product", ProductSchema)
 
