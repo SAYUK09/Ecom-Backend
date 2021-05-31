@@ -13,7 +13,7 @@ const CartSchema = new mongoose.Schema(
   qty: {type:Number, required:true},
   inStock : {type:Boolean, required:true},
   fastDelivery: {type:Boolean, required:true},
-  }
+  } ,{timestamps: true}
 )
 
 // const Cart = mongoose.model("Cart", CartSchema)
