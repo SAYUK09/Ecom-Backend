@@ -8,8 +8,10 @@ router.get('/', async(req ,res)=>{
   try{
     const product = await Cart.find()
     res.json(product)
+   
   }catch(err){
     console.log("err", err)
+    res.status(400).json({success:true,message:"error while fetching the product", error:err.message})
   }
 
 });
@@ -26,9 +28,10 @@ router.post('/', async (req, res)=>{
   
     try {
       const productData = await newCart.save();
-      res.json(productData);
+      res.json(productData)
+      
     } catch (error) {
-      res.status(400).json({ success: false, message: error });
+      res.status(400).json({ success: false, message: "error while adding product", error:error.message });
     }
 
 })
@@ -39,7 +42,7 @@ router.get('/:prdId', async(req, res)=>{
     const cartItem = await Cart.findById(req.params.prdId)
     res.json(cartItem)
   }catch (err){
-    res.json({message:err})
+     res.status(400).json({ success: false, message: "error while fetching the product", error:error.message });
   }
 } )
 
@@ -54,8 +57,7 @@ router.delete('/:prdId', async(req, res)=>{
   }
   
   catch(err){
-    res.json({message:err})
-    console.log(err)
+    res.status(400).json({ success: false, message: "error while fetching the product", error:error.message });
   }
   
 })
@@ -73,8 +75,7 @@ router.patch('/:prdId', async(req, res)=>{
 
   }catch(err){
     
-    res.json({message:err})
-    console.log(err)
+    res.status(400).json({ success: false, message: "error while updating the product", error:error.message });
   }
 })
 

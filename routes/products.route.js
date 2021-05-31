@@ -9,7 +9,7 @@ router.get('/', async(req ,res)=>{
     const product = await Product.find()
     res.json(product)
   }catch(err){
-    console.log("err", err)
+    res.status(400).json({success:true,message:"error while fetching the product", error:err.message})
   }
 
 });
@@ -26,7 +26,7 @@ router.post('/', async (req, res)=>{
       const productData = await newProduct.save();
       res.json(productData);
     } catch (error) {
-      res.status(400).json({ success: false, message: error });
+      res.status(400).json({success:true,message:"error while adding the product", error:err.message})
     }
 
 })

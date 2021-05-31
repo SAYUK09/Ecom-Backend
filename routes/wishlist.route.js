@@ -8,7 +8,7 @@ router.get('/', async(req ,res)=>{
     const product = await Wishlist.find()
     res.json(product)
   }catch(err){
-    console.log("err", err)
+    res.status(400).json({success:true,message:"error while fetching the product", error:err.message})
   }
 
 });
@@ -42,8 +42,7 @@ router.delete('/:prdId', async(req, res)=>{
   }
   
   catch(err){
-    res.json({message:err})
-    console.log(err)
+    res.status(400).json({success:true,message:"error while removing the product", error:err.message})
   }
   
 })
