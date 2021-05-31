@@ -6,8 +6,8 @@ console.log(Product)
 router.get('/', async(req ,res)=>{
  
   try{
-    const prd = await Product.find()
-    res.json(prd)
+    const product = await Product.find()
+    res.json(product)
   }catch(err){
     console.log("err", err)
   }
@@ -16,9 +16,9 @@ router.get('/', async(req ,res)=>{
 
 router.post('/', async (req, res)=>{
   console.log(req.body)
-  const addPrd = req.body
+  const addProduct = req.body
     const newProduct = new Product(
-      addPrd
+      addProduct
      
     )
     
