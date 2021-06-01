@@ -17,6 +17,8 @@ const cartRoute = require("./routes/cart.route")
 
 const wishlistRoute = require("./routes/wishlist.route")
 
+const loginRoute = require("./routes/auth.route")
+
 const dbconnection = async () => {
   try {
     await mongoose.connect(process.env.ECOM_URI, {
@@ -41,5 +43,6 @@ app.use("/cart", cartRoute)
 
 app.use("/wishlist", wishlistRoute)
 
+app.use("/register", loginRoute)
 
 app.listen(3000)
