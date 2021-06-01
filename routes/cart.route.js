@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const Cart = require("../models/cart.model")
+const verify =  require("../middlewares/verifyToken")
 
 // GET
-router.get('/', async(req ,res)=>{
+router.get('/', verify, async(req ,res)=>{
 
   try{
     const product = await Cart.find()
