@@ -6,8 +6,13 @@ const verify =  require("../middlewares/verifyToken")
 router.get('/', verify, async(req ,res)=>{
 
   try{
-    const product = await Wishlist.find()
+    
+    const product = await Wishlist.find({ user: req.user._id });
+
+    console.log(product)
+
     res.json(product)
+    
   }catch(err){
     res.status(400).json({success:true,message:"error while fetching the product", error:err.message})
   }
@@ -20,8 +25,8 @@ router.post('/', verify,async (req, res)=>{
 
   const addProduct = req.body
     const newWishlist = new Wishlist(
-      addProduct
-      
+      {...addProduct,
+      user: req.user._id}
     )
   
     try {
@@ -35,9 +40,9 @@ router.post('/', verify,async (req, res)=>{
 
 router.delete('/:prdId', verify,async(req, res)=>{
   try{
-    const removedProduct = await Wishlist.remove({_id:req.params.prdId})
+    const removedProduct = await Wishlist.remove({_id:req.params.prdId, user: req.user._id })
     
-    const newProduct = await Wishlist.find();
+    const newProduct = await Wishlist.find({ user: req.user._id });
     res.json(newProduct);
     
   }
