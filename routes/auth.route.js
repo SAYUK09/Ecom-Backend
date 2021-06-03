@@ -17,11 +17,11 @@ router.post("/signup", async (req, res) => {
 
   // Joi validation
   const { error } = signupValidation(req.body);
-  if (error) return res.send(error.details[0].message)
+  if (error) return res.send(error.details[0].message).status(401)
 
   //check if email exists
   const emailExist = await User.findOne({ email: req.body.email });
-  if (emailExist) return res.send("Email already exist, Log In");
+  if (emailExist) return res.status(400).send("Email already exist, Log In");
 
   //hash password
   const salt = await bcrypt.genSalt(10);
@@ -61,6 +61,8 @@ router.post("/login", async (req, res) => {
 
   const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
   res.header("auth-token", token).json({ token: token, user: user });
+
+  console.log(token, "token")
 })
 
 

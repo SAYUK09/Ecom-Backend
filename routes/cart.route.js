@@ -6,24 +6,32 @@ const verify =  require("../middlewares/verifyToken")
 // GET
 router.get('/', verify, async(req ,res)=>{
 
-  try{
-    const product = await Cart.find()
-    res.json(product)
-   
-  }catch(err){
-    console.log("err", err)
-    res.status(400).json({success:true,message:"error while fetching the product", error:err.message})
+  try {
+    const cart = await Cart.find({ user: req.user._id });
+    res.json(cart);
+  } catch (err) {
+    res.status(400).json({success:true,message:"error while fetching the product", error:err.message});
   }
+
+  // try{
+  //   const product = await Cart.find()
+  //   res.json(product)
+   
+  // }catch(err){
+  //   console.log("err", err)
+  //   res.status(400).json({success:true,message:"error while fetching the product", error:err.message})
+  // }
 
 });
 
 // POST
-router.post('/', async (req, res)=>{
+router.post('/', verify, async (req, res)=>{
   console.log(req.body)
   
   const addProduct = req.body
     const newCart = new Cart(
-      addProduct
+      {...addProduct,
+      user:req.user._id}
       
     )
   
@@ -38,7 +46,7 @@ router.post('/', async (req, res)=>{
 })
 
 // SPECIFIC
-router.get('/:prdId', async(req, res)=>{
+router.get('/:prdId',verify, async(req, res)=>{
   try{
     const cartItem = await Cart.findById(req.params.prdId)
     res.json(cartItem)
@@ -48,9 +56,13 @@ router.get('/:prdId', async(req, res)=>{
 } )
 
 // DELETE 
-router.delete('/:prdId', async(req, res)=>{
+router.delete('/:prdId',verify, async(req, res)=>{
   try{
-    const removedProduct = await Cart.remove({_id:req.params.prdId})
+
+    // const cart = await Cart.find({ user: req.user._id });
+    // console.log(cart, "carrttttt")
+
+    const removedProduct = await Cart.remove({_id:req.params.prdId, user:req.user._id})
     
     const newPrd = await Cart.find();
     res.json(newPrd);
@@ -64,9 +76,9 @@ router.delete('/:prdId', async(req, res)=>{
 })
 
 // Patch
-router.patch('/:prdId', async(req, res)=>{
+router.patch('/:prdId',verify, async(req, res)=>{
   try{
-    const updatedPrd = await Cart.updateOne({_id : req.params.prdId}, {
+    const updatedPrd = await Cart.updateOne({_id : req.params.prdId, user:req.user._id}, {
       $set:{qty:req.body.qty}
     })
 

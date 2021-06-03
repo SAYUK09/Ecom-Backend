@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const Wishlist = require("../models/wishlist.model")
+const verify =  require("../middlewares/verifyToken")
 
-router.get('/', async(req ,res)=>{
+router.get('/', verify, async(req ,res)=>{
 
   try{
     const product = await Wishlist.find()
@@ -14,7 +15,7 @@ router.get('/', async(req ,res)=>{
 });
 
 
-router.post('/', async (req, res)=>{
+router.post('/', verify,async (req, res)=>{
   console.log(req.body)
 
   const addProduct = req.body
@@ -32,7 +33,7 @@ router.post('/', async (req, res)=>{
 
 })
 
-router.delete('/:prdId', async(req, res)=>{
+router.delete('/:prdId', verify,async(req, res)=>{
   try{
     const removedProduct = await Wishlist.remove({_id:req.params.prdId})
     
