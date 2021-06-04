@@ -8,6 +8,7 @@ const cors = require("cors")
 app.use(bodyParser.json())
 app.use(cors())
 
+const PORT = process.env.PORT || 3100
 
 
 //Import Routes
@@ -45,4 +46,4 @@ app.use("/wishlist", wishlistRoute)
 
 app.use("/register", loginRoute)
 
-app.listen(3000)
+app.listen(PORT)
