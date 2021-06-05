@@ -13,14 +13,6 @@ router.get('/', verify, async (req, res) => {
     res.status(400).json({ success: true, message: "error while fetching the product", error: err.message });
   }
 
-  // try{
-  //   const product = await Cart.find()
-  //   res.json(product)
-
-  // }catch(err){
-  //   console.log("err", err)
-  //   res.status(400).json({success:true,message:"error while fetching the product", error:err.message})
-  // }
 
 });
 
@@ -46,6 +38,8 @@ router.post('/', verify, async (req, res) => {
   }
 
 })
+
+
 
 // SPECIFIC
 router.get('/:prdId', verify, async (req, res) => {
@@ -87,7 +81,7 @@ router.patch('/:prdId', verify, async (req, res) => {
     })
 
     const newPrd = await Cart.find({ user: req.user._id });
-    
+
     res.json(newPrd);
     console.log(updatedPrd)
 
